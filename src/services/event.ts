@@ -6,7 +6,8 @@ const list = async (): Promise<TEvent[]> => {
   return response.data;
 };
 
-const get = async (id: EventID) => {
+const get = async (id: EventID): Promise<TEvent> => {
+  console.log(id)
   const response = await axios.get(`${process.env.NEXT_PUBLIC_API}/events/${id.toString()}`)
   return response.data
 }

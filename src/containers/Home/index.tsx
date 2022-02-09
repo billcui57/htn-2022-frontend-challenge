@@ -21,8 +21,8 @@ const HomeContainer = () => {
   console.log(events.length);
 
   return (
-    <div>
-      <EventFlag colour="blue" text="hello" />
+    <div className="px-8 lg:px-64 md:px-16 ">
+      <EventList events={events}></EventList>
     </div>
   );
 };

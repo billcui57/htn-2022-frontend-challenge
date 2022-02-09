@@ -1,18 +1,15 @@
 import { TEvent } from "@/types";
+import EventListItem from "../EventListItem";
 
 type EventListProps = {
   events: TEvent[];
 };
 
 const EventList = (props: EventListProps) => {
-  const displayEventItem = (event: TEvent) => {
-    return <div>{event.name}</div>;
-  };
-
   return (
-    <div>
+    <div className="flex flex-col space-y-4">
       {props.events.map((event: TEvent) => {
-        return <div key={event.id}> {displayEventItem(event)} </div>;
+        return <EventListItem event={event} key={event.id}></EventListItem>;
       })}
     </div>
   );
