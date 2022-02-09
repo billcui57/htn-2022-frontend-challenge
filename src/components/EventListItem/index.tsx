@@ -46,7 +46,7 @@ const EventListItem = (props: EventListItemProps) => {
   };
 
   return (
-    <div className={`rounded-lg border-2 border-solid border-${BLUE_DARK} p-8`}>
+    <div className={`rounded-lg border-2 border-solid border-${BLUE_DARK} p-6`}>
       <Typography
         text={props.event.name}
         colour={BLUE_DARK}
@@ -89,12 +89,13 @@ const EventListItem = (props: EventListItemProps) => {
             handleDetailsButton(props.event.id);
           }}
           type="primary"
+          className="my-2"
         >
           More Details
         </Button>
       )}
 
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-4">
         <Button
           onClick={() => {
             setIsExpanded(!isExpanded);

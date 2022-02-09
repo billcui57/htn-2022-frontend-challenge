@@ -1,7 +1,15 @@
 import classNames from "classnames";
 import React from "react";
 import { BLUE, RED, TEXT, WHITE } from "@/constants/colours";
-import { SM, BASE, LG, SECTION_HEAD, TITLE, DISPLAY } from "@/constants/sizes";
+import {
+  SM,
+  BASE,
+  LG,
+  SECTION_HEAD,
+  TITLE,
+  DISPLAY,
+  SUBTITLE,
+} from "@/constants/sizes";
 
 type TypographyProps = {
   text: String | number;
@@ -24,6 +32,7 @@ const SIZES = {
   BASE: "base",
   LG: "lg",
   SECTION_HEAD: "section-head",
+  SUBTITLE: "subtitle",
   TITLE: "title",
   DISPLAY: "display",
 };
@@ -38,6 +47,7 @@ const Typography = (props: TypographyProps) => {
     [`text-${BASE}`]: props.size == SIZES.BASE,
     [`text-${LG}`]: props.size == SIZES.LG,
     [`text-${SECTION_HEAD}`]: props.size == SIZES.SECTION_HEAD,
+    [`text-${SUBTITLE}`]: props.size == SIZES.SUBTITLE,
     [`text-${TITLE}`]: props.size == SIZES.TITLE,
     [`text-${DISPLAY}`]: props.size == SIZES.DISPLAY,
     ["font-bold"]: props.bold,

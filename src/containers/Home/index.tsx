@@ -3,6 +3,7 @@ import { Component, useEffect, useState } from "react";
 import { EventService } from "@/services";
 import EventList from "@/components/EventList";
 import EventFlag from "@/components/EventFlag";
+import Typography from "@/components/Typography";
 
 const HomeContainer = () => {
   const [events, setEvents] = useState<TEvent[]>([]);
@@ -21,7 +22,7 @@ const HomeContainer = () => {
   console.log(events.length);
 
   return (
-    <div className="px-8 lg:px-64 md:px-16 ">
+    <div className="px-8 lg:px-64 md:px-16">
       <EventList events={events}></EventList>
     </div>
   );
