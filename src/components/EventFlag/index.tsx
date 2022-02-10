@@ -26,7 +26,7 @@ const COLOURS = {
 
 const EventFlag = (props: EventFlagProps) => {
   const classes = classNames(
-    `rounded-lg border-2 border-solid ${props.className} px-2 inline-block`,
+    `rounded-lg border-2 border-solid ${props.className} px-2 inline-block pb-0.25`,
     {
       [`bg-${WHITE}`]: props.colour == COLOURS.WHITE,
       [`bg-${TEXT}`]: props.colour == COLOURS.TEXT,
@@ -37,7 +37,11 @@ const EventFlag = (props: EventFlagProps) => {
     }
   );
 
-  return <p className={classes}>{props.text}</p>;
+  return (
+    <div className={classes}>
+      <p>{props.text}</p>
+    </div>
+  );
 };
 
 export default EventFlag;

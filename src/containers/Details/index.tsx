@@ -1,4 +1,4 @@
-import { TEvent, EventID } from "@/types";
+import { TEvent, TEventID, TSpeaker } from "@/types";
 import { Component, useEffect, useState } from "react";
 import { EventService } from "@/services";
 import Typography from "@/components/Typography";
@@ -8,9 +8,10 @@ import Button from "@/components/Input/Button";
 import _ from "lodash";
 import EventList from "@/components/EventList";
 import EventFlag from "@/components/EventFlag";
+import Image from "next/image";
 
 type DetailsContainerProps = {
-  eventId: EventID;
+  TEventID: TEventID;
 };
 
 const DetailsContainer = (props: DetailsContainerProps) => {
@@ -20,7 +21,7 @@ const DetailsContainer = (props: DetailsContainerProps) => {
 
   useEffect(() => {
     setIsLoaded(false);
-    EventService.get(props.eventId)
+    EventService.get(props.TEventID)
       .then((data: TEvent) => {
         setEvent(data);
         const relatedEventPromises: Promise<TEvent>[] = [];
@@ -36,7 +37,7 @@ const DetailsContainer = (props: DetailsContainerProps) => {
         setIsLoaded(true);
       })
       .catch((err) => console.log(err));
-  }, [props.eventId]);
+  }, [props.TEventID]);
 
   if (!event) {
     return null;
@@ -48,10 +49,50 @@ const DetailsContainer = (props: DetailsContainerProps) => {
     )} - ${DateUtils.formatUnixTimeStamp(endTime)}`;
   };
 
+  const displaySpeakers = () => {
+    if (!_.isEmpty(event.speakers)) {
+      return (
+        <div>
+          <DetailsSection sectionTitle="Speakers">
+            {event.speakers.map((speaker: TSpeaker, i: number) => {
+              const imageUrl = speaker.profile_pic;
+              console.log(imageUrl);
+
+              return (
+                <div
+                  key={`Speaker ${i}`}
+                  className="flex justify-center items-center space-x-4"
+                >
+                  <div>
+                    {speaker.profile_pic && (
+                      <Image
+                        width={100}
+                        height={100}
+                        src={imageUrl}
+                        alt={`Speaker ${i}`}
+                        className="rounded-full"
+                      ></Image>
+                    )}
+                  </div>
+
+                  <Typography
+                    text={speaker.name}
+                    colour="text"
+                    size="base"
+                  ></Typography>
+                </div>
+              );
+            })}
+          </DetailsSection>
+        </div>
+      );
+    }
+  };
+
   const handleJoinNow = (event: TEvent) => {};
 
   return (
-    <div className="px-8 lg:px-64 md:px-16 ">
+    <div className="px-4 lg:px-64 md:px-16 ">
       <Typography
         colour="text"
         size="subtitle"
@@ -62,6 +103,7 @@ const DetailsContainer = (props: DetailsContainerProps) => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 justify-center mb-4">
         <DetailsSection
+          className="row-span-2 col-span-2"
           text={event.description}
           sectionTitle="Description"
         ></DetailsSection>
@@ -90,14 +132,21 @@ const DetailsContainer = (props: DetailsContainerProps) => {
             </Button>
           </DetailsSection>
         ) : (
-          <DetailsSection
-            text={getStartEndText(event.start_time, event.end_time)}
-            sectionTitle="When"
-          ></DetailsSection>
+          <DetailsSection sectionTitle="When">
+            <EventFlag
+              text={getStartEndText(event.start_time, event.end_time)}
+              colour="green"
+            ></EventFlag>
+          </DetailsSection>
         )}
 
+        {displaySpeakers()}
+
         {!_.isEmpty(relatedEvents) && (
-          <DetailsSection sectionTitle="You may also like...">
+          <DetailsSection
+            sectionTitle="You may also like..."
+            className="col-span-2"
+          >
             <EventList events={relatedEvents}></EventList>
           </DetailsSection>
         )}

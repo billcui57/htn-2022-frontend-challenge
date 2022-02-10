@@ -2,17 +2,17 @@
 type TEventType = "workshop" | "activity" | "tech_talk";
 type TPermission = "public" | "private";
 
-type TSpeaker = {
+export type TSpeaker = {
   name: string;
   profile_pic?: string; // a url to an image
 };
 
 
-export type EventID = number
+export type TEventID = number
 
 // The information for an event will look like so
 export type TEvent = {
-  id: EventID;
+  id: TEventID;
   name: string;
   event_type: TEventType;
   permission?: TPermission;

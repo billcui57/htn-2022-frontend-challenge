@@ -1,6 +1,6 @@
 import { BLUE, BLUE_DARK } from "@/constants/colours";
 import { LG, SM } from "@/constants/sizes";
-import { EventID, TEvent } from "@/types";
+import { TEventID, TEvent } from "@/types";
 import Typography from "@/components/Typography";
 import { TextUtils, DateUtils } from "@/utils";
 import EventFlag from "@/components/EventFlag";
@@ -41,8 +41,8 @@ const EventListItem = (props: EventListItemProps) => {
     )} - ${DateUtils.formatUnixTimeStamp(endTime)}`;
   };
 
-  const handleDetailsButton = (eventId: EventID) => {
-    router.push(`/${eventId}`);
+  const handleDetailsButton = (TEventID: TEventID) => {
+    router.push(`/${TEventID}`);
   };
 
   return (

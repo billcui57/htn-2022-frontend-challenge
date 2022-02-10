@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { EventID } from "@/types";
+import { TEventID } from "@/types";
 import { useRouter } from "next/router";
 import DetailsContainer from "@/containers/Details";
 import PageHOC from "@/pages/template";
@@ -7,13 +7,13 @@ import PageHOC from "@/pages/template";
 const DetailsPage = () => {
   const router = useRouter();
 
-  const eventId: EventID = router.query.id;
+  const TEventID: TEventID = router.query.id;
 
-  if (!eventId) {
+  if (!TEventID) {
     return null;
   }
 
-  return <DetailsContainer eventId={eventId} />;
+  return <DetailsContainer TEventID={TEventID} />;
 };
 
 export default PageHOC({ Component: DetailsPage, title: "Event Details" });

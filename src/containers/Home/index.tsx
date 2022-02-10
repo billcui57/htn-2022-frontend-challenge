@@ -20,7 +20,7 @@ const HomeContainer = () => {
   }, []);
 
   return (
-    <div className="px-8 lg:px-64 md:px-16">
+    <div className="px-4 lg:px-64 md:px-16">
       <EventList hasSearch events={events}></EventList>
     </div>
   );

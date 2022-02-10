@@ -1,7 +1,7 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    disableStaticImages: true,
+    domains: ["hackthenorth.com"],
   },
   webpack(config) {
     config.module.rules.push({
