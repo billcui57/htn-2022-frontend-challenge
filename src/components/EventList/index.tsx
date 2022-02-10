@@ -13,15 +13,27 @@ const EventList = (props: EventListProps) => {
   const [filterText, setFilterText] = useState<string>("");
 
   useEffect(() => {
+    let newEvents: TEvent[] = [];
+
     if (filterText && filterText.length > 0 && props.hasSearch) {
-      setFilteredEvents(
-        props.events.filter((event: TEvent) => {
-          return event.name.toLowerCase().includes(filterText);
-        })
-      );
+      newEvents = props.events.filter((event: TEvent) => {
+        return event.name.toLowerCase().includes(filterText);
+      });
     } else {
-      setFilteredEvents(props.events);
+      newEvents = props.events;
     }
+
+    setFilteredEvents(
+      newEvents.sort((a: TEvent, b: TEvent) => {
+        if (a.start_time < b.start_time) {
+          return 1;
+        } else if (a.start_time > b.start_time) {
+          return -1;
+        } else {
+          return 0;
+        }
+      })
+    );
   }, [props.events, filterText, props.hasSearch]);
 
   const displaySearchBar = () => {

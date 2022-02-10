@@ -96,9 +96,11 @@ const DetailsContainer = (props: DetailsContainerProps) => {
           ></DetailsSection>
         )}
 
-        <DetailsSection sectionTitle="You may also like...">
-          <EventList events={relatedEvents}></EventList>
-        </DetailsSection>
+        {!_.isEmpty(relatedEvents) && (
+          <DetailsSection sectionTitle="You may also like...">
+            <EventList events={relatedEvents}></EventList>
+          </DetailsSection>
+        )}
       </div>
     </div>
   );

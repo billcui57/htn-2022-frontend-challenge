@@ -46,9 +46,10 @@ const EventListItem = (props: EventListItemProps) => {
   };
 
   return (
-    <div className={`rounded-lg border-2 border-solid border-${BLUE_DARK} p-6`}>
+    <div className={`rounded-lg border-2 border-solid border-${BLUE_DARK} p-4`}>
       <Typography
         text={props.event.name}
+        className="mb-4"
         colour="text"
         size="sm"
         bold
@@ -75,10 +76,20 @@ const EventListItem = (props: EventListItemProps) => {
             <EventFlag text="Join here!" colour="green"></EventFlag>
           </Button>
         ) : (
-          <EventFlag
-            text={getStartEndText(props.event.start_time, props.event.end_time)}
-            colour="green"
-          ></EventFlag>
+          <div>
+            <EventFlag
+              text={`Starts ${DateUtils.formatUnixTimeStamp(
+                props.event.start_time
+              )}`}
+              colour="green"
+            ></EventFlag>
+            <EventFlag
+              text={`Ends ${DateUtils.formatUnixTimeStamp(
+                props.event.end_time
+              )}`}
+              colour="green"
+            ></EventFlag>
+          </div>
         )}
       </div>
 
