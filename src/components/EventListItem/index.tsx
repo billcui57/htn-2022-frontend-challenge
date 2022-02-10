@@ -29,8 +29,8 @@ const EventListItem = (props: EventListItemProps) => {
             ? props.event.description
             : TextUtils.shortenTextWithEllipse(props.event.description, 100)
         }
-        colour={BLUE_DARK}
-        size={SM}
+        colour="text"
+        size="sm"
       ></Typography>
     );
   };
@@ -49,8 +49,9 @@ const EventListItem = (props: EventListItemProps) => {
     <div className={`rounded-lg border-2 border-solid border-${BLUE_DARK} p-6`}>
       <Typography
         text={props.event.name}
-        colour={BLUE_DARK}
-        size={LG}
+        colour="text"
+        size="sm"
+        bold
       ></Typography>
 
       <div className="flex justify-between">
@@ -68,7 +69,7 @@ const EventListItem = (props: EventListItemProps) => {
         {DateUtils.isWithinRange(
           props.event.start_time,
           props.event.end_time,
-          props.event.end_time - 1
+          Date.now()
         ) ? (
           <Button onClick={() => {}} type="transparent">
             <EventFlag text="Join here!" colour="green"></EventFlag>

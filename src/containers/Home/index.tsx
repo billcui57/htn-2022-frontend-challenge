@@ -19,11 +19,9 @@ const HomeContainer = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(events.length);
-
   return (
     <div className="px-8 lg:px-64 md:px-16">
-      <EventList events={events}></EventList>
+      <EventList hasSearch events={events}></EventList>
     </div>
   );
 };

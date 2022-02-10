@@ -12,7 +12,7 @@ const PageHOC =
   () => {
     return (
       <div>
-        <Navigation title={title} className="m-8" />
+        <Navigation title={title} className="m-4" />
         <Component />
       </div>
     );

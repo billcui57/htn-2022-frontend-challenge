@@ -18,16 +18,18 @@ const DetailsSection = (props: DetailsSectionProps) => {
         text={props.sectionTitle}
         className="flex justify-center"
       ></Typography>
-      {props.text && (
-        <Typography
-          colour="text"
-          size="base"
-          text={props.text}
-          className="flex justify-center"
-        ></Typography>
-      )}
 
-      <div className="flex justify-center">{props.children}</div>
+      <div className="flex justify-center">
+        {props.text && (
+          <Typography
+            colour="text"
+            size="base"
+            text={props.text}
+            className="flex justify-center"
+          ></Typography>
+        )}
+        {props.children}
+      </div>
     </span>
   );
 };
