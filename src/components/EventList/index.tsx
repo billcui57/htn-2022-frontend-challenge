@@ -6,6 +6,7 @@ import TextInput from "@/components/Input/Text";
 type EventListProps = {
   events: TEvent[];
   hasSearch?: boolean;
+  isAuthenticated?: boolean;
 };
 
 const EventList = (props: EventListProps) => {
@@ -23,6 +24,12 @@ const EventList = (props: EventListProps) => {
       newEvents = props.events;
     }
 
+    if (!props.isAuthenticated) {
+      newEvents = newEvents.filter((event: TEvent) => {
+        return event.permission == "public";
+      });
+    }
+
     setFilteredEvents(
       newEvents.sort((a: TEvent, b: TEvent) => {
         if (a.start_time < b.start_time) {
@@ -34,7 +41,7 @@ const EventList = (props: EventListProps) => {
         }
       })
     );
-  }, [props.events, filterText, props.hasSearch]);
+  }, [props, filterText]);
 
   const displaySearchBar = () => {
     const handleSearchBarChange = (e: any) => {

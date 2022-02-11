@@ -13,8 +13,10 @@ type NavigationProps = {
 const Navigation = (props: NavigationProps) => {
   const router = useRouter();
 
+  const noBackPaths: string[] = ["/", "/login"];
+
   const shouldShowGoHome = () => {
-    return router.pathname != "/";
+    return !noBackPaths.includes(router.pathname);
   };
 
   return (

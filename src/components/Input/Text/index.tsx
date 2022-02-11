@@ -5,7 +5,6 @@ type TextInputProps = {
   label: string;
   onChange: any;
   className?: string;
-  value: string | number;
 };
 
 const TextInput = (props: TextInputProps) => {
