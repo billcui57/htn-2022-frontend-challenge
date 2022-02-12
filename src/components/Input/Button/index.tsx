@@ -45,7 +45,7 @@ const Button = ({
         type == TYPES.SECONDARY,
       [`bg-${RED_DARKER} text-${WHITE} hover:bg-${RED_DARK}`]:
         type == TYPES.WARNING,
-      [`hover:opacity-75`]: type == TYPES.TRANSPARENT,
+      // [`hover:opacity-75`]: type == TYPES.TRANSPARENT,
     }
   );
 

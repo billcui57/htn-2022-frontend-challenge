@@ -4,6 +4,7 @@ import { UserProfile } from "@auth0/nextjs-auth0";
 import DetailsSection from "@/components/DetailsSection";
 import GenericEventFlag from "@/components/EventFlags/GenericEventFlag";
 import Button from "@/components/Input/Button";
+import { Fragment } from "react";
 
 type WhenEventFlagProps = {
   event: TEvent;
@@ -23,12 +24,6 @@ const WhenEventFlag = (props: WhenEventFlagProps) => {
         window.location.assign(props.event.public_url);
       }
     }
-  };
-
-  const getStartEndText = (startTime, endTime) => {
-    return `${DateUtils.formatUnixTimeStamp(
-      startTime
-    )} - ${DateUtils.formatUnixTimeStamp(endTime)}`;
   };
 
   const shouldJoinNow = (event: TEvent) => {
@@ -65,10 +60,19 @@ const WhenEventFlag = (props: WhenEventFlagProps) => {
       }
     } else {
       return (
-        <GenericEventFlag
-          text={getStartEndText(props.event.start_time, props.event.end_time)}
-          colour="green"
-        ></GenericEventFlag>
+        <div>
+          <GenericEventFlag
+            text={`Starts ${DateUtils.formatUnixTimeStamp(
+              props.event.start_time
+            )}`}
+            colour="green"
+            className="mb-2 sm:mr-2"
+          ></GenericEventFlag>
+          <GenericEventFlag
+            text={`Ends ${DateUtils.formatUnixTimeStamp(props.event.end_time)}`}
+            colour="green"
+          ></GenericEventFlag>
+        </div>
       );
     }
   };

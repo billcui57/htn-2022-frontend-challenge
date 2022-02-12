@@ -16,7 +16,7 @@ const DetailsSection = (props: DetailsSectionProps) => {
         size="section-head"
         bold
         text={props.sectionTitle}
-        className="flex justify-center"
+        className="flex justify-center mb-2"
       ></Typography>
 
       <div className="flex justify-center">

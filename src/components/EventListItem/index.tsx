@@ -63,7 +63,7 @@ const EventListItem = (props: EventListItemProps) => {
           <GenericEventFlag
             text={props.event.event_type}
             colour="blue"
-            className="mr-2"
+            className="mb-2 sm:mr-2"
           ></GenericEventFlag>
 
           {props.event.permission && (
