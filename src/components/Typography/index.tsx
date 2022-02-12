@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React from "react";
-import { BLUE, RED, TEXT, WHITE } from "@/constants/colours";
+import { BLUE, RED, TEXT, WHITE, GREEN_DARK } from "@/constants/colours";
 import {
   SM,
   BASE,
@@ -25,6 +25,7 @@ const COLOURS = {
   BLUE: "blue",
   TEXT: "text",
   WHITE: "white",
+  GREEN: "green",
 };
 
 const SIZES = {
@@ -43,6 +44,7 @@ const Typography = (props: TypographyProps) => {
     [`text-${TEXT}`]: props.colour == COLOURS.TEXT,
     [`text-${BLUE}`]: props.colour == COLOURS.BLUE,
     [`text-${RED}`]: props.colour == COLOURS.RED,
+    [`text-${GREEN_DARK}`]: props.colour == COLOURS.GREEN,
     [`text-${SM}`]: props.size == SIZES.SM,
     [`text-${BASE}`]: props.size == SIZES.BASE,
     [`text-${LG}`]: props.size == SIZES.LG,

@@ -21,12 +21,7 @@ const DetailsSection = (props: DetailsSectionProps) => {
 
       <div className="flex justify-center">
         {props.text && (
-          <Typography
-            colour="text"
-            size="base"
-            text={props.text}
-            className="flex justify-center"
-          ></Typography>
+          <Typography colour="text" size="base" text={props.text}></Typography>
         )}
         {props.children}
       </div>

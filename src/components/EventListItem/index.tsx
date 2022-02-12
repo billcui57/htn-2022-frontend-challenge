@@ -3,14 +3,16 @@ import { LG, SM } from "@/constants/sizes";
 import { TEventID, TEvent } from "@/types";
 import Typography from "@/components/Typography";
 import { TextUtils, DateUtils } from "@/utils";
-import EventFlag from "@/components/EventFlag";
+import GenericEventFlag from "@/components/EventFlags/GenericEventFlag";
 import { useState } from "react";
 import { DownArrow, UpArrow } from "@/svg";
 import Button from "@/components/Input/Button";
 import { useRouter } from "next/router";
+import WhenEventFlag from "@/components/EventFlags/WhenEventFlag";
 
 type EventListItemProps = {
   event: TEvent;
+  isAuthenticated: boolean;
 };
 
 const EventListItem = (props: EventListItemProps) => {
@@ -23,22 +25,23 @@ const EventListItem = (props: EventListItemProps) => {
     }
 
     return (
-      <Typography
-        text={
-          isExpanded
-            ? props.event.description
-            : TextUtils.shortenTextWithEllipse(props.event.description, 100)
-        }
-        colour="text"
-        size="sm"
-      ></Typography>
+      <div
+        onClick={() => {
+          setIsExpanded(!isExpanded);
+        }}
+      >
+        {" "}
+        <Typography
+          text={
+            isExpanded
+              ? props.event.description
+              : TextUtils.shortenTextWithEllipse(props.event.description, 100)
+          }
+          colour="text"
+          size="sm"
+        ></Typography>
+      </div>
     );
-  };
-
-  const getStartEndText = (startTime, endTime) => {
-    return `${DateUtils.formatUnixTimeStamp(
-      startTime
-    )} - ${DateUtils.formatUnixTimeStamp(endTime)}`;
   };
 
   const handleDetailsButton = (TEventID: TEventID) => {
@@ -55,42 +58,26 @@ const EventListItem = (props: EventListItemProps) => {
         bold
       ></Typography>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between mb-2">
         <div>
-          <EventFlag text={props.event.event_type} colour="blue"></EventFlag>
+          <GenericEventFlag
+            text={props.event.event_type}
+            colour="blue"
+            className="mr-2"
+          ></GenericEventFlag>
 
           {props.event.permission && (
-            <EventFlag
+            <GenericEventFlag
               text={props.event.permission?.toString()}
               colour="yellow"
-            ></EventFlag>
+            ></GenericEventFlag>
           )}
         </div>
 
-        {DateUtils.isWithinRange(
-          props.event.start_time,
-          props.event.end_time,
-          Date.now()
-        ) ? (
-          <Button onClick={() => {}} type="transparent">
-            <EventFlag text="Join here!" colour="green"></EventFlag>
-          </Button>
-        ) : (
-          <div>
-            <EventFlag
-              text={`Starts ${DateUtils.formatUnixTimeStamp(
-                props.event.start_time
-              )}`}
-              colour="green"
-            ></EventFlag>
-            <EventFlag
-              text={`Ends ${DateUtils.formatUnixTimeStamp(
-                props.event.end_time
-              )}`}
-              colour="green"
-            ></EventFlag>
-          </div>
-        )}
+        <WhenEventFlag
+          event={props.event}
+          isAuthenticated={props.isAuthenticated}
+        ></WhenEventFlag>
       </div>
 
       {displayDescription()}
@@ -100,7 +87,7 @@ const EventListItem = (props: EventListItemProps) => {
           onClick={() => {
             handleDetailsButton(props.event.id);
           }}
-          type="primary"
+          type="secondary"
           className="my-2"
         >
           More Details

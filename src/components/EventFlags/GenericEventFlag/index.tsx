@@ -8,10 +8,9 @@ import {
 } from "@/constants/colours";
 import classNames from "classnames";
 
-type EventFlagProps = {
+type GenericEventFlagProps = {
   text: string;
   colour: string;
-  isButton?: boolean;
   className?: string;
 };
 
@@ -24,9 +23,9 @@ const COLOURS = {
   GREEN: "green",
 };
 
-const EventFlag = (props: EventFlagProps) => {
+const GenericEventFlag = (props: GenericEventFlagProps) => {
   const classes = classNames(
-    `rounded-lg border-2 border-solid ${props.className} px-2 inline-block`,
+    `rounded-lg ${props.className} px-2 inline-block`,
     {
       [`bg-${WHITE}`]: props.colour == COLOURS.WHITE,
       [`bg-${TEXT}`]: props.colour == COLOURS.TEXT,
@@ -44,4 +43,4 @@ const EventFlag = (props: EventFlagProps) => {
   );
 };
 
-export default EventFlag;
+export default GenericEventFlag;

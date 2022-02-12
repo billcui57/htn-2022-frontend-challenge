@@ -2,7 +2,7 @@ import { TEvent } from "@/types";
 import { Component, useEffect, useState } from "react";
 import { EventService } from "@/services";
 import EventList from "@/components/EventList";
-import EventFlag from "@/components/EventFlag";
+import GenericEventFlag from "@/components/EventFlags/GenericEventFlag";
 import Typography from "@/components/Typography";
 import TextInput from "@/components/Input/Text";
 import Button from "@/components/Input/Button";

@@ -7,8 +7,11 @@ import { DateUtils } from "@/utils";
 import Button from "@/components/Input/Button";
 import _ from "lodash";
 import EventList from "@/components/EventList";
-import EventFlag from "@/components/EventFlag";
+import GenericEventFlag from "@/components/EventFlags/GenericEventFlag";
 import Image from "next/image";
+import { useUser } from "@auth0/nextjs-auth0";
+import EventWhenDetailsSection from "@/components/EventFlags/WhenEventFlag";
+import WhenEventFlag from "@/components/EventFlags/WhenEventFlag";
 
 type DetailsContainerProps = {
   TEventID: TEventID;
@@ -17,10 +20,11 @@ type DetailsContainerProps = {
 const DetailsContainer = (props: DetailsContainerProps) => {
   const [event, setEvent] = useState<TEvent>();
   const [relatedEvents, setRelatedEvents] = useState<TEvent[]>([]);
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [isEventLoading, setIsEventLoading] = useState<boolean>(true);
+  const { user, error, isLoading } = useUser();
 
   useEffect(() => {
-    setIsLoaded(false);
+    setIsEventLoading(true);
     EventService.get(props.TEventID)
       .then((data: TEvent) => {
         setEvent(data);
@@ -34,7 +38,7 @@ const DetailsContainer = (props: DetailsContainerProps) => {
       })
       .then((relatedEvents: TEvent[]) => {
         setRelatedEvents(relatedEvents);
-        setIsLoaded(true);
+        setIsEventLoading(false);
       })
       .catch((err) => console.log(err));
   }, [props.TEventID]);
@@ -43,116 +47,110 @@ const DetailsContainer = (props: DetailsContainerProps) => {
     return null;
   }
 
-  const getStartEndText = (startTime, endTime) => {
-    return `${DateUtils.formatUnixTimeStamp(
-      startTime
-    )} - ${DateUtils.formatUnixTimeStamp(endTime)}`;
-  };
-
   const displaySpeakers = () => {
     if (!_.isEmpty(event.speakers)) {
       return (
-        <div>
-          <DetailsSection sectionTitle="Speakers">
-            {event.speakers.map((speaker: TSpeaker, i: number) => {
-              const imageUrl = speaker.profile_pic;
-              console.log(imageUrl);
+        <DetailsSection
+          sectionTitle="Speakers"
+          className="col-span-2 sm:col-span-1"
+        >
+          {event.speakers.map((speaker: TSpeaker, i: number) => {
+            const imageUrl = speaker.profile_pic;
+            console.log(imageUrl);
 
-              return (
-                <div
-                  key={`Speaker ${i}`}
-                  className="flex justify-center items-center space-x-4"
-                >
-                  <div>
-                    {speaker.profile_pic && (
-                      <Image
-                        width={100}
-                        height={100}
-                        src={imageUrl}
-                        alt={`Speaker ${i}`}
-                        className="rounded-full"
-                      ></Image>
-                    )}
-                  </div>
+            return (
+              <div
+                key={`Speaker ${i}`}
+                className="flex justify-center items-center space-x-4"
+              >
+                {speaker.profile_pic && (
+                  <Image
+                    width={100}
+                    height={100}
+                    src={imageUrl}
+                    alt={`Speaker ${i}`}
+                    className="rounded-full"
+                  ></Image>
+                )}
 
-                  <Typography
-                    text={speaker.name}
-                    colour="text"
-                    size="base"
-                  ></Typography>
-                </div>
-              );
-            })}
-          </DetailsSection>
-        </div>
+                <Typography
+                  text={speaker.name}
+                  colour="text"
+                  size="base"
+                ></Typography>
+              </div>
+            );
+          })}
+        </DetailsSection>
       );
     }
   };
 
-  const handleJoinNow = (event: TEvent) => {};
+  const displayDetails = () => {
+    if (isLoading || isEventLoading)
+      return (
+        <Typography
+          text="Loading..."
+          colour="text"
+          size="base"
+          bold
+          className="flex justify-center"
+        ></Typography>
+      );
 
-  return (
-    <div className="px-4 lg:px-64 md:px-16 ">
-      <Typography
-        colour="text"
-        size="subtitle"
-        bold
-        text={event.name}
-        className="flex justify-center m-8"
-      ></Typography>
+    return (
+      <div>
+        <Typography
+          colour="green"
+          size="subtitle"
+          bold
+          text={event.name}
+          className="flex justify-center m-8"
+        ></Typography>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 justify-center mb-4">
         <DetailsSection
-          className="row-span-2 col-span-2"
           text={event.description}
           sectionTitle="Description"
         ></DetailsSection>
 
-        <DetailsSection sectionTitle="Event Type">
-          <EventFlag text={event.event_type} colour="blue"></EventFlag>
-        </DetailsSection>
-
-        <DetailsSection sectionTitle="Permission">
-          <EventFlag text={event.permission} colour="yellow"></EventFlag>
-        </DetailsSection>
-
-        {DateUtils.isWithinRange(
-          event.start_time,
-          event.end_time,
-          Date.now()
-        ) ? (
-          <DetailsSection sectionTitle="When">
-            <Button
-              onClick={() => {
-                handleJoinNow(event);
-              }}
-              type="primary"
-            >
-              Join now!
-            </Button>
+        <div className="grid grid-cols-2 gap-4 justify-items-stretch my-4">
+          <DetailsSection sectionTitle="Event Type">
+            <GenericEventFlag
+              text={event.event_type}
+              colour="blue"
+            ></GenericEventFlag>
           </DetailsSection>
-        ) : (
-          <DetailsSection sectionTitle="When">
-            <EventFlag
-              text={getStartEndText(event.start_time, event.end_time)}
-              colour="green"
-            ></EventFlag>
-          </DetailsSection>
-        )}
 
-        {displaySpeakers()}
+          <DetailsSection sectionTitle="Permission">
+            <GenericEventFlag
+              text={event.permission}
+              colour="yellow"
+            ></GenericEventFlag>
+          </DetailsSection>
+
+          <DetailsSection
+            sectionTitle="When"
+            className="col-span-2 sm:col-span-1"
+          >
+            <WhenEventFlag
+              event={event}
+              isAuthenticated={!!user}
+            ></WhenEventFlag>
+          </DetailsSection>
+
+          {displaySpeakers()}
+        </div>
 
         {!_.isEmpty(relatedEvents) && (
-          <DetailsSection
-            sectionTitle="You may also like..."
-            className="col-span-2"
-          >
+          <DetailsSection sectionTitle="You may also like...">
             <EventList events={relatedEvents}></EventList>
           </DetailsSection>
         )}
       </div>
-    </div>
-  );
+    );
+  };
+
+  return <div className="px-4 lg:px-64 md:px-16">{displayDetails()}</div>;
 };
 
 export default DetailsContainer;

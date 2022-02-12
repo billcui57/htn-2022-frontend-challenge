@@ -15,7 +15,7 @@ const TextInput = (props: TextInputProps) => {
         type="text"
         name={props.label}
         onChange={props.onChange}
-        className={`rounded-lg focus:outline-none border-2 border-${BLUE_DARK} px-2`}
+        className={`rounded-lg focus:outline-none bg-transparent border-2 border-${BLUE_DARK} px-2`}
       ></input>
     </div>
   );

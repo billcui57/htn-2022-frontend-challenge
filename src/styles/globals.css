@@ -3,5 +3,48 @@
 @tailwind utilities;
 
 body {
-  background-color: #e0ebef !important;
+  /* background: rgb(201, 218, 235) !important;
+  background: -moz-linear-gradient(
+    180deg,
+    rgba(201, 218, 235, 1) 0%,
+    rgba(249, 236, 236, 1) 25%,
+    rgba(249, 236, 236, 1) 33%,
+    rgba(201, 218, 235, 1) 59%,
+    rgba(213, 223, 235, 1) 71%,
+    rgba(249, 236, 236, 1) 87%
+  ) !important;
+  background: -webkit-linear-gradient(
+    180deg,
+    rgba(201, 218, 235, 1) 0%,
+    rgba(249, 236, 236, 1) 25%,
+    rgba(249, 236, 236, 1) 33%,
+    rgba(201, 218, 235, 1) 59%,
+    rgba(213, 223, 235, 1) 71%,
+    rgba(249, 236, 236, 1) 87%
+  ) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(201, 218, 235, 1) 0%,
+    rgba(249, 236, 236, 1) 25%,
+    rgba(249, 236, 236, 1) 33%,
+    rgba(201, 218, 235, 1) 59%,
+    rgba(213, 223, 235, 1) 71%,
+    rgba(249, 236, 236, 1) 87%
+  ) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#c9daeb",endColorstr="#f9ecec",GradientType=1) !important; */
+
+  background: rgb(201, 218, 235) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(201, 218, 235, 1) 0%,
+    rgba(249, 236, 236, 1) 100%
+  ) !important  ;
+  height: 100% !important;
+  margin: 0 !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+}
+
+html {
+  height: 100% !important;
 }

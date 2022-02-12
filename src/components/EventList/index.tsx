@@ -6,7 +6,7 @@ import TextInput from "@/components/Input/Text";
 type EventListProps = {
   events: TEvent[];
   hasSearch?: boolean;
-  isAuthenticated?: boolean;
+  isAuthenticated: boolean;
 };
 
 const EventList = (props: EventListProps) => {
@@ -18,7 +18,7 @@ const EventList = (props: EventListProps) => {
 
     if (filterText && filterText.length > 0 && props.hasSearch) {
       newEvents = props.events.filter((event: TEvent) => {
-        return event.name.toLowerCase().includes(filterText);
+        return event.name.toLowerCase().includes(filterText.toLowerCase());
       });
     } else {
       newEvents = props.events;
@@ -60,7 +60,13 @@ const EventList = (props: EventListProps) => {
     <div className="flex flex-col space-y-4">
       {props.hasSearch && displaySearchBar()}
       {filteredEvents.map((event: TEvent) => {
-        return <EventListItem event={event} key={event.id}></EventListItem>;
+        return (
+          <EventListItem
+            event={event}
+            key={event.id}
+            isAuthenticated={props.isAuthenticated}
+          ></EventListItem>
+        );
       })}
     </div>
   );
