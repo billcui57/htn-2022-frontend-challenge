@@ -13,9 +13,15 @@ type WhenEventFlagProps = {
 const WhenEventFlag = (props: WhenEventFlagProps) => {
   const handleJoinNow = () => {
     if (props.isAuthenticated) {
-      window.location.assign(props.event.private_url);
+      if (props.event.private_url) {
+        window.location.assign(props.event.private_url);
+      } else if (props.event.public_url) {
+        window.location.assign(props.event.public_url);
+      }
     } else {
-      window.location.assign(props.event.public_url);
+      if (props.event.public_url) {
+        window.location.assign(props.event.public_url);
+      }
     }
   };
 
@@ -29,7 +35,7 @@ const WhenEventFlag = (props: WhenEventFlagProps) => {
     return DateUtils.isWithinRange(
       event.start_time,
       event.end_time,
-      event.end_time - 1
+      Date.now()
     );
   };
 
@@ -46,10 +52,6 @@ const WhenEventFlag = (props: WhenEventFlagProps) => {
       if (hasJoinLink(props.event, props.isAuthenticated)) {
         return (
           <Button onClick={() => handleJoinNow()} type="primary">
-            {/* <GenericEventFlag
-              text="Join here!"
-              colour="green"
-            ></GenericEventFlag> */}
             Join here!
           </Button>
         );

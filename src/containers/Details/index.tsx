@@ -55,9 +55,6 @@ const DetailsContainer = (props: DetailsContainerProps) => {
           className="col-span-2 sm:col-span-1"
         >
           {event.speakers.map((speaker: TSpeaker, i: number) => {
-            const imageUrl = speaker.profile_pic;
-            console.log(imageUrl);
-
             return (
               <div
                 key={`Speaker ${i}`}
@@ -67,7 +64,7 @@ const DetailsContainer = (props: DetailsContainerProps) => {
                   <Image
                     width={100}
                     height={100}
-                    src={imageUrl}
+                    src={speaker.profile_pic}
                     alt={`Speaker ${i}`}
                     className="rounded-full"
                   ></Image>
@@ -121,12 +118,14 @@ const DetailsContainer = (props: DetailsContainerProps) => {
             ></GenericEventFlag>
           </DetailsSection>
 
-          <DetailsSection sectionTitle="Permission">
-            <GenericEventFlag
-              text={event.permission}
-              colour="yellow"
-            ></GenericEventFlag>
-          </DetailsSection>
+          {event.permission && (
+            <DetailsSection sectionTitle="Permission">
+              <GenericEventFlag
+                text={event.permission}
+                colour="yellow"
+              ></GenericEventFlag>
+            </DetailsSection>
+          )}
 
           <DetailsSection
             sectionTitle="When"
@@ -143,7 +142,10 @@ const DetailsContainer = (props: DetailsContainerProps) => {
 
         {!_.isEmpty(relatedEvents) && (
           <DetailsSection sectionTitle="You may also like...">
-            <EventList events={relatedEvents}></EventList>
+            <EventList
+              events={relatedEvents}
+              isAuthenticated={!!user}
+            ></EventList>
           </DetailsSection>
         )}
       </div>
