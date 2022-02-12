@@ -52,7 +52,7 @@ const Navigation = (props: NavigationProps) => {
       {/* Mobile */}
       <div className="sm:hidden">
         <div
-          className={`${props.className} grid items-center justify-items-center grid-cols-1 space-y-2 `}
+          className={`${props.className} grid items-center justify-items-center grid-cols-1 `}
         >
           <DropDownMenu items={getDropDownItems()}></DropDownMenu>
           {/* <Button

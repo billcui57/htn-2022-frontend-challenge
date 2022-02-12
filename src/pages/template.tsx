@@ -26,7 +26,11 @@ const PageHOC = ({ Component, title }: PageHOCProps) => {
 
     return (
       <div>
-        <Navigation title={title} className="m-4" isAuthenticated={!!user} />
+        <Navigation
+          title={title}
+          className="mt-4 mb-2"
+          isAuthenticated={!!user}
+        />
         <Component />
       </div>
     );

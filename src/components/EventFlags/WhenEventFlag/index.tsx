@@ -5,6 +5,7 @@ import DetailsSection from "@/components/DetailsSection";
 import GenericEventFlag from "@/components/EventFlags/GenericEventFlag";
 import Button from "@/components/Input/Button";
 import { Fragment } from "react";
+import Typography from "@/components/Typography";
 
 type WhenEventFlagProps = {
   event: TEvent;
@@ -60,16 +61,19 @@ const WhenEventFlag = (props: WhenEventFlagProps) => {
       }
     } else {
       return (
-        <div>
+        <div className="flex justify-center flex-col sm:flex-row">
           <GenericEventFlag
-            text={`Starts ${DateUtils.formatUnixTimeStamp(
-              props.event.start_time
-            )}`}
+            text={`${DateUtils.formatUnixTimeStamp(props.event.start_time)}`}
             colour="green"
-            className="mb-2 sm:mr-2"
           ></GenericEventFlag>
+          <Typography
+            colour="text"
+            size="sm"
+            text="to"
+            className="mx-1"
+          ></Typography>
           <GenericEventFlag
-            text={`Ends ${DateUtils.formatUnixTimeStamp(props.event.end_time)}`}
+            text={`${DateUtils.formatUnixTimeStamp(props.event.end_time)}`}
             colour="green"
           ></GenericEventFlag>
         </div>
