@@ -1,13 +1,15 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Typography from "@/components/Typography";
 import Button from "@/components/Input/Button";
 import LeftArrow from "@/svg/LeftArrow";
+import DropDownMenu from "@/components/DropDown/DropDownMenu";
+import { DropDownItemProps } from "../DropDown/DropDownItem";
 
 type NavigationProps = {
   title: string;
-  className: string;
+  className?: string;
   isAuthenticated: boolean;
 };
 
@@ -20,7 +22,6 @@ const Navigation = (props: NavigationProps) => {
     return !noBackPaths.includes(router.pathname);
   };
   const handleLoginLogoutButton = () => {
-    console.log("hi");
     if (props.isAuthenticated) {
       router.push("/api/auth/logout");
     } else {
@@ -28,47 +29,97 @@ const Navigation = (props: NavigationProps) => {
     }
   };
 
+  const getDropDownItems = (): DropDownItemProps[] => {
+    const items: DropDownItemProps[] = [];
+
+    if (shouldShowGoHome()) {
+      items.push({
+        label: "Go home",
+        onClick: () => router.push("/"),
+      });
+    }
+
+    items.push({
+      label: props.isAuthenticated ? "Logout" : "Login",
+      onClick: () => handleLoginLogoutButton(),
+    });
+
+    return items;
+  };
+
   return (
-    <div
-      className={`${props.className} grid items-center justify-items-center grid-cols-1 sm:grid-cols-3 space-y-2`}
-    >
-      <div className="order-1 sm:order-1">
-        <Button
-          onClick={() => router.push("/")}
-          type="secondary"
-          className={` ${
-            shouldShowGoHome() ? "" : "hidden sm:block sm:invisible "
-          }`}
+    <Fragment>
+      {/* Mobile */}
+      <div className="sm:hidden">
+        <div
+          className={`${props.className} grid items-center justify-items-center grid-cols-1 space-y-2 `}
         >
+          <DropDownMenu items={getDropDownItems()}></DropDownMenu>
+          {/* <Button
+            onClick={() => router.push("/")}
+            type="secondary"
+            className={` ${shouldShowGoHome() ? "" : "hidden"}`}
+          >
+            <Typography
+              colour="text"
+              size="base"
+              bold
+              text="Go home"
+            ></Typography>
+          </Button>
+          <Button onClick={() => handleLoginLogoutButton()} type="secondary">
+            <Typography
+              colour="text"
+              size="base"
+              bold
+              text={props.isAuthenticated ? "Logout" : "Login"}
+            ></Typography>
+          </Button>*/}
           <Typography
             colour="text"
-            size="base"
+            size="title"
             bold
-            text="Go home"
+            text={props.title}
           ></Typography>
-        </Button>
+        </div>
       </div>
 
-      <div className="order-3 sm:order-2">
-        <Typography
-          colour="text"
-          size="title"
-          bold
-          text={props.title}
-        ></Typography>
-      </div>
+      {/* Desktop */}
+      <div className="hidden sm:block">
+        <div
+          className={`${props.className} grid items-center justify-items-center grid-cols-3`}
+        >
+          <Button
+            onClick={() => router.push("/")}
+            type="secondary"
+            className={` ${shouldShowGoHome() ? "" : "invisible "}`}
+          >
+            <Typography
+              colour="text"
+              size="base"
+              bold
+              text="Go home"
+            ></Typography>
+          </Button>
 
-      <div className="order-2 sm:order-3">
-        <Button onClick={() => handleLoginLogoutButton()} type="secondary">
           <Typography
             colour="text"
-            size="base"
+            size="title"
             bold
-            text={props.isAuthenticated ? "Logout" : "Login"}
+            text={props.title}
           ></Typography>
-        </Button>
+
+          <Button onClick={() => handleLoginLogoutButton()} type="secondary">
+            <Typography
+              colour="text"
+              size="base"
+              bold
+              text={props.isAuthenticated ? "Logout" : "Login"}
+            ></Typography>
+          </Button>
+        </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 
