@@ -48,39 +48,34 @@ const EventListItem = (props: EventListItemProps) => {
   };
 
   return (
-    <div
-      className={`rounded-lg border-2 border-solid border-${BLUE_DARK} py-4 px-4`}
-    >
+    <div className={`rounded-lg border-2 border-solid border-${BLUE_DARK} p-4`}>
       <Typography
         text={props.event.name}
-        className="mb-4"
+        className="mb-2"
         colour="text"
         size="sm"
         bold
       ></Typography>
 
-      <div className="flex justify-between mb-2 space-x-1">
-        <div>
-          <div className="flex space-x-1">
-            <GenericEventFlag
-              text={props.event.event_type}
-              colour="blue"
-            ></GenericEventFlag>
+      <div className="flex space-x-1 mb-4">
+        <GenericEventFlag
+          text={props.event.event_type}
+          colour="blue"
+        ></GenericEventFlag>
 
-            {props.event.permission && (
-              <GenericEventFlag
-                text={props.event.permission?.toString()}
-                colour="yellow"
-              ></GenericEventFlag>
-            )}
-          </div>
-        </div>
-
-        <WhenEventFlag
-          event={props.event}
-          isAuthenticated={props.isAuthenticated}
-        ></WhenEventFlag>
+        {props.event.permission && (
+          <GenericEventFlag
+            text={props.event.permission?.toString()}
+            colour="yellow"
+          ></GenericEventFlag>
+        )}
       </div>
+
+      <WhenEventFlag
+        event={props.event}
+        isAuthenticated={props.isAuthenticated}
+        className="mb-2"
+      ></WhenEventFlag>
 
       {displayDescription()}
 

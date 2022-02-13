@@ -52,7 +52,7 @@ const DetailsContainer = (props: DetailsContainerProps) => {
       return (
         <DetailsSection
           sectionTitle="Speakers"
-          className="col-span-2 sm:col-span-1 my-4"
+          className="col-span-2 sm:col-span-1 mt-4"
         >
           {event.speakers.map((speaker: TSpeaker, i: number) => {
             return (
@@ -129,11 +129,12 @@ const DetailsContainer = (props: DetailsContainerProps) => {
 
           <DetailsSection
             sectionTitle="When"
-            className="col-span-2 sm:col-span-1 my-4"
+            className="col-span-2 sm:col-span-1 mt-4"
           >
             <WhenEventFlag
               event={event}
               isAuthenticated={!!user}
+              className="flex justify-center "
             ></WhenEventFlag>
           </DetailsSection>
 
@@ -152,7 +153,7 @@ const DetailsContainer = (props: DetailsContainerProps) => {
     );
   };
 
-  return <div className="px-4 lg:px-64 md:px-16">{displayDetails()}</div>;
+  return <div className="px-4 lg:px-32 md:px-16">{displayDetails()}</div>;
 };
 
 export default DetailsContainer;

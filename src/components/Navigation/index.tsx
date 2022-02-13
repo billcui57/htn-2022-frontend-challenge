@@ -50,74 +50,55 @@ const Navigation = (props: NavigationProps) => {
   return (
     <Fragment>
       {/* Mobile */}
-      <div className="sm:hidden">
-        <div
-          className={`${props.className} grid items-center justify-items-center grid-cols-1 `}
-        >
-          <DropDownMenu items={getDropDownItems()}></DropDownMenu>
-          {/* <Button
-            onClick={() => router.push("/")}
-            type="secondary"
-            className={` ${shouldShowGoHome() ? "" : "hidden"}`}
-          >
-            <Typography
-              colour="text"
-              size="base"
-              bold
-              text="Go home"
-            ></Typography>
-          </Button>
-          <Button onClick={() => handleLoginLogoutButton()} type="secondary">
-            <Typography
-              colour="text"
-              size="base"
-              bold
-              text={props.isAuthenticated ? "Logout" : "Login"}
-            ></Typography>
-          </Button>*/}
-          <Typography
-            colour="text"
-            size="title"
-            bold
-            text={props.title}
-          ></Typography>
-        </div>
+
+      <div
+        className={`sm:hidden ${props.className} grid items-center justify-items-center grid-cols-1 `}
+      >
+        <DropDownMenu
+          items={getDropDownItems()}
+          className="mb-2"
+        ></DropDownMenu>
+        <Typography
+          colour="text"
+          size="title"
+          bold
+          text={props.title}
+        ></Typography>
       </div>
 
       {/* Desktop */}
-      <div className="hidden sm:block">
-        <div
-          className={`${props.className} grid items-center justify-items-center grid-cols-3`}
-        >
-          <Button
-            onClick={() => router.push("/")}
-            type="secondary"
-            className={` ${shouldShowGoHome() ? "" : "invisible "}`}
-          >
-            <Typography
-              colour="text"
-              size="base"
-              bold
-              text="Go home"
-            ></Typography>
-          </Button>
 
+      <div
+        className={` hidden sm:block ${props.className} grid items-center justify-items-center grid-cols-3`}
+      >
+        <Button
+          onClick={() => router.push("/")}
+          type="secondary"
+          className={` ${shouldShowGoHome() ? "" : "invisible "}`}
+        >
           <Typography
             colour="text"
-            size="title"
+            size="base"
             bold
-            text={props.title}
+            text="Go home"
           ></Typography>
+        </Button>
 
-          <Button onClick={() => handleLoginLogoutButton()} type="secondary">
-            <Typography
-              colour="text"
-              size="base"
-              bold
-              text={props.isAuthenticated ? "Logout" : "Login"}
-            ></Typography>
-          </Button>
-        </div>
+        <Typography
+          colour="text"
+          size="title"
+          bold
+          text={props.title}
+        ></Typography>
+
+        <Button onClick={() => handleLoginLogoutButton()} type="secondary">
+          <Typography
+            colour="text"
+            size="base"
+            bold
+            text={props.isAuthenticated ? "Logout" : "Login"}
+          ></Typography>
+        </Button>
       </div>
     </Fragment>
   );

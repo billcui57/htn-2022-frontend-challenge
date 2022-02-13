@@ -28,7 +28,7 @@ const PageHOC = ({ Component, title }: PageHOCProps) => {
       <div>
         <Navigation
           title={title}
-          className="mt-4 mb-2"
+          className="mb-4 mt-2"
           isAuthenticated={!!user}
         />
         <Component />

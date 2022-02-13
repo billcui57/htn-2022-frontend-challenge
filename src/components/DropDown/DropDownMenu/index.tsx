@@ -6,16 +6,16 @@ import { useState } from "react";
 
 type DropDownMenuProps = {
   items: DropDownItemProps[];
+  className?: string;
 };
 
 const DropDownMenu = (props: DropDownMenuProps) => {
   const [isExpand, setIsExpand] = useState<boolean>(false);
 
   return (
-    <div>
+    <div className={props.className}>
       <Button
         type="transparent"
-        className="mb-2"
         fullWidth
         onClick={() => {
           setIsExpand(!isExpand);
