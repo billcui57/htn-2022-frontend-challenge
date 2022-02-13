@@ -16,7 +16,7 @@ type WhenEventFlagProps = {
 const WhenEventFlag = (props: WhenEventFlagProps) => {
   const handleJoinNow = () => {
     if (!hasJoinLink(props.event, props.isAuthenticated)) {
-      // alert("Ask on discord for the join link!");
+      alert("Ask on discord for the join link!");
       return;
     }
 
