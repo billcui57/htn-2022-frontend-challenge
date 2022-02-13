@@ -4,14 +4,22 @@ import { UserProfile } from "@auth0/nextjs-auth0";
 import DetailsSection from "@/components/DetailsSection";
 import GenericEventFlag from "@/components/EventFlags/GenericEventFlag";
 import Button from "@/components/Input/Button";
+import { Fragment } from "react";
+import Typography from "@/components/Typography";
 
 type WhenEventFlagProps = {
   event: TEvent;
   isAuthenticated: boolean;
+  className?: string;
 };
 
 const WhenEventFlag = (props: WhenEventFlagProps) => {
   const handleJoinNow = () => {
+    if (!hasJoinLink(props.event, props.isAuthenticated)) {
+      alert("Ask on discord for the join link!");
+      return;
+    }
+
     if (props.isAuthenticated) {
       if (props.event.private_url) {
         window.location.assign(props.event.private_url);
@@ -23,12 +31,6 @@ const WhenEventFlag = (props: WhenEventFlagProps) => {
         window.location.assign(props.event.public_url);
       }
     }
-  };
-
-  const getStartEndText = (startTime, endTime) => {
-    return `${DateUtils.formatUnixTimeStamp(
-      startTime
-    )} - ${DateUtils.formatUnixTimeStamp(endTime)}`;
   };
 
   const shouldJoinNow = (event: TEvent) => {
@@ -49,31 +51,36 @@ const WhenEventFlag = (props: WhenEventFlagProps) => {
 
   const displayWhen = () => {
     if (shouldJoinNow(props.event)) {
-      if (hasJoinLink(props.event, props.isAuthenticated)) {
-        return (
-          <Button onClick={() => handleJoinNow()} type="primary">
-            Join here!
-          </Button>
-        );
-      } else {
-        return (
-          <GenericEventFlag
-            text="Ask in Discord for the join link!"
-            colour="green"
-          ></GenericEventFlag>
-        );
-      }
+      return (
+        <Button onClick={() => handleJoinNow()} type="primary">
+          Join here!
+        </Button>
+      );
     } else {
       return (
-        <GenericEventFlag
-          text={getStartEndText(props.event.start_time, props.event.end_time)}
-          colour="green"
-        ></GenericEventFlag>
+        <div className="flex items-center ">
+          <GenericEventFlag
+            text={`${DateUtils.formatUnixTimeStamp(props.event.start_time)}`}
+            colour="green"
+          ></GenericEventFlag>
+
+          <Typography
+            colour="text"
+            size="sm"
+            text="to"
+            className="mx-1 sm:mb-0"
+          ></Typography>
+
+          <GenericEventFlag
+            text={`${DateUtils.formatUnixTimeStamp(props.event.end_time)}`}
+            colour="green"
+          ></GenericEventFlag>
+        </div>
       );
     }
   };
 
-  return displayWhen();
+  return <div className={`${props.className}`}>{displayWhen()}</div>;
 };
 
 export default WhenEventFlag;

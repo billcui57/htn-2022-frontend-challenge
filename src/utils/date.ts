@@ -1,8 +1,7 @@
 const formatUnixTimeStamp = (timestamp) => {
-  const dateString = new Date(timestamp).toLocaleDateString('en')
+  const dateString = new Date(timestamp).toDateString()
   const timeString = new Date(timestamp).toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit' })
-
-  return dateString + " " + timeString
+  return dateString + ", " + timeString
 }
 
 //expects unix timestamps

@@ -30,12 +30,11 @@ const EventListItem = (props: EventListItemProps) => {
           setIsExpanded(!isExpanded);
         }}
       >
-        {" "}
         <Typography
           text={
             isExpanded
               ? props.event.description
-              : TextUtils.shortenTextWithEllipse(props.event.description, 100)
+              : TextUtils.shortenTextWithEllipse(props.event.description, 200)
           }
           colour="text"
           size="sm"
@@ -52,33 +51,31 @@ const EventListItem = (props: EventListItemProps) => {
     <div className={`rounded-lg border-2 border-solid border-${BLUE_DARK} p-4`}>
       <Typography
         text={props.event.name}
-        className="mb-4"
+        className="mb-2"
         colour="text"
         size="sm"
         bold
       ></Typography>
 
-      <div className="flex justify-between mb-2">
-        <div>
+      <div className="flex space-x-1 mb-4">
+        <GenericEventFlag
+          text={props.event.event_type}
+          colour="blue"
+        ></GenericEventFlag>
+
+        {props.event.permission && (
           <GenericEventFlag
-            text={props.event.event_type}
-            colour="blue"
-            className="mr-2"
+            text={props.event.permission?.toString()}
+            colour="yellow"
           ></GenericEventFlag>
-
-          {props.event.permission && (
-            <GenericEventFlag
-              text={props.event.permission?.toString()}
-              colour="yellow"
-            ></GenericEventFlag>
-          )}
-        </div>
-
-        <WhenEventFlag
-          event={props.event}
-          isAuthenticated={props.isAuthenticated}
-        ></WhenEventFlag>
+        )}
       </div>
+
+      <WhenEventFlag
+        event={props.event}
+        isAuthenticated={props.isAuthenticated}
+        className="mb-2"
+      ></WhenEventFlag>
 
       {displayDescription()}
 

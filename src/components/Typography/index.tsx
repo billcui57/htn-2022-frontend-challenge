@@ -60,11 +60,7 @@ const Typography = (props: TypographyProps) => {
     return null;
   }
 
-  return (
-    <p>
-      <span className={classes}> {props.text}</span>
-    </p>
-  );
+  return <p className={classes}>{props.text}</p>;
 };
 
 export default Typography;

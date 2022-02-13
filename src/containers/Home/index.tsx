@@ -37,7 +37,7 @@ const HomeContainer = () => {
     );
   };
 
-  return <div className="px-4 lg:px-64 md:px-16 ">{displayContents()}</div>;
+  return <div className="px-4 lg:px-32 md:px-16 ">{displayContents()}</div>;
 };
 
 export default HomeContainer;

@@ -7,6 +7,7 @@ import {
   GREEN_LIGHT,
 } from "@/constants/colours";
 import classNames from "classnames";
+import Typography from "@/components/Typography";
 
 type GenericEventFlagProps = {
   text: string;
@@ -25,7 +26,7 @@ const COLOURS = {
 
 const GenericEventFlag = (props: GenericEventFlagProps) => {
   const classes = classNames(
-    `rounded-lg ${props.className} px-2 inline-block`,
+    `rounded-lg ${props.className} px-2 inline-block text-center`,
     {
       [`bg-${WHITE}`]: props.colour == COLOURS.WHITE,
       [`bg-${TEXT}`]: props.colour == COLOURS.TEXT,
@@ -37,9 +38,12 @@ const GenericEventFlag = (props: GenericEventFlagProps) => {
   );
 
   return (
-    <div className={classes}>
-      <p>{props.text}</p>
-    </div>
+    <Typography
+      className={classes}
+      text={props.text}
+      colour="black"
+      size="base"
+    ></Typography>
   );
 };
 

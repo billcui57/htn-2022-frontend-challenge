@@ -10,7 +10,15 @@ type TextInputProps = {
 const TextInput = (props: TextInputProps) => {
   return (
     <div className={`${props.className}`}>
-      <Typography text={props.label} colour="text" size="lg" bold></Typography>
+      <div>
+        <Typography
+          text={props.label}
+          colour="text"
+          size="lg"
+          bold
+        ></Typography>
+      </div>
+
       <input
         type="text"
         name={props.label}
