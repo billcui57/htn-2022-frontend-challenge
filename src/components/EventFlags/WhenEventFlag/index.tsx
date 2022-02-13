@@ -59,10 +59,10 @@ const WhenEventFlag = (props: WhenEventFlagProps) => {
     } else {
       return (
         <div className="flex items-center ">
-          <GenericEventFlag
+          {/* <GenericEventFlag
             text={`${DateUtils.formatUnixTimeStamp(props.event.start_time)}`}
             colour="green"
-          ></GenericEventFlag>
+          ></GenericEventFlag> */}
 
           <Typography
             colour="text"
@@ -71,10 +71,10 @@ const WhenEventFlag = (props: WhenEventFlagProps) => {
             className="mx-1 sm:mb-0"
           ></Typography>
 
-          <GenericEventFlag
+          {/* <GenericEventFlag
             text={`${DateUtils.formatUnixTimeStamp(props.event.end_time)}`}
             colour="green"
-          ></GenericEventFlag>
+          ></GenericEventFlag> */}
         </div>
       );
     }
