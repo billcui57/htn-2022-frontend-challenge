@@ -1,11 +1,8 @@
-// const formatUnixTimeStamp = (timestamp) => {
-//   const dateString = new Date(timestamp).toDateString()
-//   const day = dateString.split(" ").at(0)
-//   const dateStringWithoutDay = dateString.split(" ").slice(1).join(" ")
-//   const timeString = new Date(timestamp).toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit' })
-
-//   return day + ", " + dateStringWithoutDay + ", " + timeString
-// }
+const formatUnixTimeStamp = (timestamp) => {
+  const dateString = new Date(timestamp).toDateString()
+  const timeString = new Date(timestamp).toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit' })
+  return dateString + ", " + timeString
+}
 
 //expects unix timestamps
 const isWithinRange = (start, end, rightNow) => {
@@ -14,4 +11,4 @@ const isWithinRange = (start, end, rightNow) => {
 
 }
 
-export default { isWithinRange }
+export default { formatUnixTimeStamp, isWithinRange }
