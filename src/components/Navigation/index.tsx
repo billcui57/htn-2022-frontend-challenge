@@ -51,54 +51,58 @@ const Navigation = (props: NavigationProps) => {
     <Fragment>
       {/* Mobile */}
 
-      <div
-        className={`sm:hidden ${props.className} grid items-center justify-items-center grid-cols-1 `}
-      >
-        <DropDownMenu
-          items={getDropDownItems()}
-          className="mb-2"
-        ></DropDownMenu>
-        <Typography
-          colour="text"
-          size="title"
-          bold
-          text={props.title}
-        ></Typography>
+      <div className="sm:hidden ">
+        <div
+          className={`${props.className} grid items-center justify-items-center grid-cols-1 `}
+        >
+          <DropDownMenu
+            items={getDropDownItems()}
+            className="mb-2"
+          ></DropDownMenu>
+          <Typography
+            colour="text"
+            size="title"
+            bold
+            text={props.title}
+          ></Typography>
+        </div>
       </div>
 
       {/* Desktop */}
 
-      <div
-        className={` hidden sm:block ${props.className} grid items-center justify-items-center grid-cols-3`}
-      >
-        <Button
-          onClick={() => router.push("/")}
-          type="secondary"
-          className={` ${shouldShowGoHome() ? "" : "invisible "}`}
+      <div className="hidden sm:block">
+        <div
+          className={` ${props.className} grid items-center justify-items-center grid-cols-3`}
         >
+          <Button
+            onClick={() => router.push("/")}
+            type="secondary"
+            className={` ${shouldShowGoHome() ? "" : "invisible "}`}
+          >
+            <Typography
+              colour="text"
+              size="base"
+              bold
+              text="Go home"
+            ></Typography>
+          </Button>
+
           <Typography
             colour="text"
-            size="base"
+            size="title"
             bold
-            text="Go home"
+            text={props.title}
           ></Typography>
-        </Button>
 
-        <Typography
-          colour="text"
-          size="title"
-          bold
-          text={props.title}
-        ></Typography>
-
-        <Button onClick={() => handleLoginLogoutButton()} type="secondary">
-          <Typography
-            colour="text"
-            size="base"
-            bold
-            text={props.isAuthenticated ? "Logout" : "Login"}
-          ></Typography>
-        </Button>
+          <Button onClick={() => handleLoginLogoutButton()} type="secondary">
+            <Typography
+              colour="text"
+              size="base"
+              bold
+              text={props.isAuthenticated ? "Logout" : "Login"}
+            ></Typography>
+          </Button>
+        </div>
       </div>
     </Fragment>
   );
