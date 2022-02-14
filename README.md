@@ -1,8 +1,14 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
+```bash
+npm install
+# or
+yarn
+```
+
+
+run the development server:
 
 ```bash
 npm run dev
@@ -12,23 +18,51 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## File structure
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+You'll be spending most of your time developing inside the "src" directory.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Pages
 
-## Learn More
+A file in pages corresponds to a page. Next.js automatically parses this directory to determine routing. Therefore,
+/pages/index.tsx corresponds to "/". /pages/api corresponds to "/api". /pages/[id] corresponds to "/[id]".
 
-To learn more about Next.js, take a look at the following resources:
+A page should not have much logic in it. It should pretty much only render the corresponding container and nothing else. In some cases you might want to get the router query ids in this layer and pass it on to the containers, but you should not make service calls in this layer.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Containers
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+A file in containers corresponds to a single file in pages. Containers should be smart in the sense that they are making data requests and service calls. Containers compose components together to create the view for a page.
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Components
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+These are, well, components that are meant to be reused and extended. Take a look at EventFlags and see how WhenEventFlag is composed of GenericEventFlag. 
+
+Components should be "dumb". In other words, they should not make data requests and service calls. If you want an event object, have it as a prop that is passed in, and have the container that uses the component to get the event object from the backend and pass it down.
+
+Components should not have margins. If a component A uses component B and C and wants to have spacing between B and C, we should *never* have component B and C have margins to do this. We should instead make use of flexboxs with space between in component A. Having margins in components leads to unpredictable behaviour when we reuse them in various scenarios.
+
+### Constants
+
+This is where constants are defined. For sizes, colours, etc. This standarizes the UI so that we can define our own colour scheme. In addition data constants should be here too. If the number of event types keep increasing, we can instead store this as an array in the constants.
+
+### Services
+
+This is where the frontend does communication with the outside world. The event file contains code for CRUD requests to the backend for events. It returns a promise that containers that call it should resolve. In the future if we integrate Google Analytics or other services, we should place the api request code here.
+
+## Styles
+
+Since we are using tailwindcss, this folder is pretty empty. However in the future as we move away from tailwindcss, we should have css style files for each component and container.
+
+## SVG
+
+Define SVG's you want to use here. Remember to create a component that wraps the SVG so we can use it as a component
+
+## Utils
+
+Commonly used functions
+
+
+### Considerations
+
+If you ever realize that you are drilling props several components down, it might be time to look into useContext or Redux. This should be easy to do by adding a StoreProvider around a page.

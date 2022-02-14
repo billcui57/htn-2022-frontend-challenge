@@ -1,4 +1,5 @@
-// Each event will belong to one of the following types
+// Each event will belong to one of the following types. If the number of event types keep increasing, we can instead
+// store this as an array in the constants 
 type TEventType = "workshop" | "activity" | "tech_talk";
 type TPermission = "public" | "private";
 
